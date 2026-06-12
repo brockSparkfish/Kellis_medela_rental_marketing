@@ -35,7 +35,7 @@
     header { background: var(--white); border-bottom: 1px solid var(--lgray); padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
     .header-left { display: flex; align-items: center; gap: 20px; }
     .medela-wrap { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; }
-    .medela-rental-label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray); line-height: 1; margin-top: 2px; margin-left: 2px; }
+    .medela-rental-label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray); line-height: 1; margin-top: 2px; margin-left: 34px; }
     img.medela-logo { height: 42px; width: auto; display: inline-block; mix-blend-mode: multiply; }
     img.kellis-logo  { height: 40px; width: auto; display: block; mix-blend-mode: multiply; }
     .pipe { width: 1px; height: 38px; background: var(--lgray); flex-shrink: 0; }
@@ -289,6 +289,25 @@
     /* ── Footer ── */
     footer { background: #2C1A10; color: rgba(255,255,255,0.45); text-align: center; padding: 24px; font-size: 12px; }
     footer a { color: rgba(255,255,255,0.55); text-decoration: none; margin: 0 8px; }
+
+    /* ══════════════════════════════════════════════
+       PRINT STYLES
+    ══════════════════════════════════════════════ */
+    @media print {
+      body * { visibility: hidden; }
+      .print-target, .print-target * { visibility: visible; }
+      .print-target {
+        position: fixed;
+        left: 0; top: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+      }
+      @page { margin: 0; size: auto; }
+    }
   </style>
 </head>
 <body>
@@ -333,7 +352,7 @@
 
       <!-- Business Card Option A -->
       <div class="mcard">
-        <div class="bc-viewer">
+        <div class="bc-viewer" id="bc-front-back-viewer">
           <div class="bc-viewer-label">Front</div>
           <div class="bc-wrap">
             <div class="bc bc-front">
@@ -466,7 +485,7 @@
           <h3>Standard 3.5 × 2" Card</h3>
           <p>Front uses the hero pump image as background — warm and editorial. "RENT" in amber leads the headline. Pricing shown inline. Back is blush with the 3-step process, both logos, and QR.</p>
         </div>
-        <div class="mcard-footer"><a href="#" class="btn-sm">Download PDF →</a></div>
+        <div class="mcard-footer"><a href="#" onclick="printElement('bc-front-back-viewer', 'Medela Rental Business Card'); return false;" class="btn-sm">Print / Save PDF →</a></div>
       </div>
 
       <!-- Business Card Option B -->
@@ -482,7 +501,7 @@
           <h3>Dark Brown Premium Card</h3>
           <p>Bold Playfair Display headline on deep brown. Clean and premium. Ideal for gift shop counters, OB offices, or lactation consultant waiting rooms.</p>
         </div>
-        <div class="mcard-footer"><a href="#" class="btn-sm">Download PDF →</a></div>
+        <div class="mcard-footer"><a href="#" onclick="printElement('bc-front-back-viewer', 'Medela Rental Business Card Variant'); return false;" class="btn-sm">Print / Save PDF →</a></div>
       </div>
 
     </div>
@@ -500,7 +519,7 @@
       <p>4 × 7" format. Designed to stop a new mom mid-aisle and communicate the full rental value prop in seconds.</p>
     </div>
     <div class="st-wrap">
-      <div class="st-mockup">
+      <div class="st-mockup" id="st-mockup">
         <div class="st-banner">#1 Breast Pump Used in U.S. Hospitals &nbsp;·&nbsp; From $2.92/day</div>
         <div class="st-header">
           <img class="med" src="data:image/png;base64,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" alt="Medela"/>
@@ -579,7 +598,7 @@
           <li><span class="ck">✓</span> Dark brown CTA bar with QR code</li>
           <li><span class="ck">✓</span> Both logos + support email</li>
         </ul>
-        <a href="#" class="btn-sm">Download PDF →</a>
+        <a href="#" onclick="printElement('st-mockup', 'Medela Rental Shelf Talker'); return false;" class="btn-sm">Print / Save PDF →</a>
       </div>
     </div>
   </div>
@@ -595,7 +614,7 @@
       <h2>Email Template Examples</h2>
       <p>HTML emails built on the exact same brand tokens. Ready to drop into any ESP — Mailchimp, Klaviyo, Constant Contact.</p>
     </div>
-    <div class="em-mockup">
+    <div class="em-mockup" id="em-mockup">
       <div class="em-gold"></div>
       <div class="em-header">
         <img class="med" src="data:image/png;base64,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" alt="Medela"/>
@@ -642,7 +661,7 @@
         <p style="margin-top:6px;">support@mybreastpumprental.com · © 2026 Breast Pump Rentals LLC · Medela Rental Program</p>
       </div>
     </div>
-    <div style="text-align:center; margin-top:28px;"><a href="#" class="btn-sm">Download HTML Email Template →</a></div>
+    <div style="text-align:center; margin-top:28px;"><a href="#" onclick="printElement('em-mockup', 'Medela Rental Email Template'); return false;" class="btn-sm">Print / Save PDF →</a></div>
   </div>
 </section>
 
@@ -774,6 +793,28 @@
   </p>
   <p style="margin-top:8px;">© 2026 Breast Pump Rentals LLC · Medela Rental Marketing · Powered by Synergy Medical Systems</p>
 </footer>
+
+
+<script>
+function printElement(id, title) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  // Clone the element into a print-only overlay
+  var overlay = document.createElement('div');
+  overlay.id = 'print-overlay';
+  overlay.className = 'print-target';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:white;display:flex;align-items:center;justify-content:center;';
+  var clone = el.cloneNode(true);
+  clone.style.cssText = 'transform:none;';
+  overlay.appendChild(clone);
+  document.body.appendChild(overlay);
+  var orig = document.title;
+  document.title = title;
+  window.print();
+  document.title = orig;
+  document.body.removeChild(overlay);
+}
+</script>
 
 </body>
 </html>
